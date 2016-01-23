@@ -30,6 +30,9 @@ object Stats {
     }
 
 
+    def fact(n: Int) = 1 to n reduceLeft(_*_)
+
+
     def main(args: Array[String]) {
           println("Running the Stats application.")
     }
