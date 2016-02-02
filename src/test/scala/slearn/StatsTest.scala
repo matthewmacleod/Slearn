@@ -12,4 +12,8 @@ class SetSuite extends FunSuite {
     assert("this is a string" == Stats.something)
   }
 
+  test("test the absolute value function") {
+    assert(Stats.abs(-1) == 1)
+  }
+
 }
