@@ -2,7 +2,7 @@ package slearn
 
 import org.scalatest.FunSuite
 
-class SetSuite extends FunSuite {
+class StatsSuite extends FunSuite {
 
   test("An empty Set should have size 0") {
     assert(Set.empty.size == 0)
@@ -15,5 +15,8 @@ class SetSuite extends FunSuite {
   test("test the absolute value function") {
     assert(Stats.abs(-1) == 1)
   }
+
+
+
 
 }
