@@ -39,8 +39,9 @@ object MKM_Examples {
     }
 
     // create a string from list of strings
+    // use a foldleft /: which creates left-leaning operation tree
     def makeString(words: List[String]): String = {
-      (words.head /: words.tail) (_+" "+_)
+      (words.head /: words.tail) (_ + " " + _)
     }
 
     /////////////  simple maths algorithms  /////////////////
