@@ -119,6 +119,8 @@ class MkmSuite extends FunSuite {
     assert(List(10,200,3000) == MKM_Examples.productAll2(List(1,2,3),List(10,100,1000)))
   }
 
+  test("dot product 1"){ assert(6 == MKM_Examples.dotProduct(List(0,2,4),List(0,1,1))) }
+
   test("test isp prime3"){ assert( true == MKM_Examples.isPrime(3)) }
 
   test("test isp prime4"){ assert( false == MKM_Examples.isPrime(4)) }

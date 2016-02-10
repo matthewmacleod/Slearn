@@ -44,13 +44,20 @@ object MKM_Examples {
       (words.head /: words.tail) (_ + " " + _)
     }
 
+    // xs is the accumulator, and since going L to R,
+    // starting with empty list, the original list will be reversed
+    def rev[T](list: List[T]): List[T] = {
+      list.foldLeft(List[T]()) ((xs, x) => x::xs)
+    }
+
     def reverseLeft[T](xs: List[T]): List[T] = {
       (List[T]() /: xs) {(ys,y) => y::ys}
     }
 
+
     /////////////  simple maths algorithms  /////////////////
 
-    def sum(a: Int, b:Int): Int = {
+    def sum(a: Int, b: Int): Int = {
       a + b
     }
 
@@ -58,12 +65,12 @@ object MKM_Examples {
       a * b
     }
 
-    def sum(ns:List[Int]): Int = (0 /: ns) (_+_)
+    def sum(ns: List[Int]): Int = (0 /: ns) (_+_)
 
-    def product(ns:List[Int]): Int = (1 /: ns) (_*_)
+    def product(ns: List[Int]): Int = (1 /: ns) (_*_)
 
     // return power do x^y
-    def power(x:Double, y:Int): Double = {
+    def power(x: Double, y: Int): Double = {
       @annotation.tailrec def _pow(x:Double, n:Int, acc:Double=1): Double = n match {
         case 0 => acc
         case _ => _pow(x,n-1,acc*x)
@@ -71,40 +78,45 @@ object MKM_Examples {
       _pow(x,y)
     }
 
-    def quotient(numerator:Int, denominator:Int): Int =  {
+    def quotient(numerator: Int, denominator: Int): Int =  {
       numerator/denominator
     }
 
-    def quotient(numerator:Double, denominator:Double): Int = {
+    def quotient(numerator: Double, denominator: Double): Int = {
       (numerator/denominator).floor.toInt
     }
 
-    def remainder(numerator:Int, denominator:Int): Int =  {
+    def remainder(numerator: Int, denominator: Int): Int =  {
       numerator % denominator
     }
 
-    def remainder(numerator:Double, denominator:Double): Int =  {
+    def remainder(numerator: Double, denominator: Double): Int =  {
       (numerator % denominator).toInt
     }
 
-    def square(n:Int): Int = n*n
+    def square(n: Int): Int = n*n
 
     // def squareAll(myList:List[Int]): List[Int] = myList.map((x:Int) => square(x))
-    def squareAll(myList:List[Int]): List[Int] = myList.map(square(_))
+    def squareAll(myList: List[Int]): List[Int] = myList.map(square(_))
 
-    def sumSquareAll(myList:List[Int]): Int = squareAll(myList).reduce(_+_)
+    def sumSquareAll(myList: List[Int]): Int = squareAll(myList).reduce(_+_)
 
-    def productAll(myList:List[Int]): Int = myList.reduce(_*_)
+    def productAll(myList: List[Int]): Int = myList.reduce(_*_)
 
-    def productAll2(myListA:List[Int], myListB:List[Int]): List[Int] = {
+    def productAll2(myListA: List[Int], myListB: List[Int]): List[Int] = {
       for ((a,b) <- myListA zip myListB) yield a*b
     }
 
-    def nthPrime(s: Stream[Int], n:Int): Int = {
+    def dotProduct(listA: List[Int], listB: List[Int]): Int = {
+      val productVector: List[Int] = for ((a,b) <- listA zip listB) yield a*b
+      productVector.reduce(_+_)
+    }
+
+    def nthPrime(s: Stream[Int], n: Int): Int = {
       (s.filter(isPrime(_)))(n)
     }
 
-    def takeNPrimes(s: Stream[Int], n:Int): List[Int] = {
+    def takeNPrimes(s: Stream[Int], n: Int): List[Int] = {
       (s.filter(isPrime(_))).take(n).toList
     }
 
@@ -117,7 +129,7 @@ object MKM_Examples {
     }
 
     // Determine if a number is prime
-    def isPrime(n:Integer) : Boolean = {
+    def isPrime(n: Int): Boolean = {
       var answer: Boolean = false
       val ns = 2 to n-1
       if (n < 2) { // negative numbers and 1 are not primes
@@ -130,7 +142,7 @@ object MKM_Examples {
     }
 
     // Calculate the golden ratio.
-    def goldenRatio(a:Double, b:Double): Double = {
+    def goldenRatio(a: Double, b: Double): Double = {
       var n:Int = 50
       def _ratio(x:Double, y:Double, n:Int): Double = n match{
         case 1 => (x max y)/(x min y)
@@ -140,12 +152,12 @@ object MKM_Examples {
     }
 
     // Give the square root of a number, via Newton's method:
-    def squareRoot(n:Double): Double = {
-      def _abs(x:Double) = if (x < 0) -1.0 * x else x
-      def _square(x:Double) = x * x
-      def _improve(guess:Double, x:Double) = (guess + x / guess) / 2.0
-      def _converged(guess:Double, x:Double) = _abs(_square(guess)-x) < 0.00001
-      def _sqrtIter(guess:Double, x:Double): Double = {
+    def squareRoot(n: Double): Double = {
+      def _abs(x: Double) = if (x < 0) -1.0 * x else x
+      def _square(x: Double) = x * x
+      def _improve(guess: Double, x: Double) = (guess + x / guess) / 2.0
+      def _converged(guess: Double, x: Double) = _abs(_square(guess)-x) < 0.00001
+      def _sqrtIter(guess: Double, x: Double): Double = {
         if (_converged(guess, x)) guess
         else _sqrtIter(_improve(guess, x), x)
       }
