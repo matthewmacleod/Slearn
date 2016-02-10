@@ -51,6 +51,10 @@ class MkmSuite extends FunSuite {
     assert(1.4142156862745097 == MKM_Examples.squareRoot(2.0))
   }
 
+  test("sqrtStream 2"){
+    assert(1.4142156862745097 == MKM_Examples.sqrtStream(2.0))
+  }
+
   test("make string example"){
     assert("an easy test" == MKM_Examples.makeString(List("an", "easy", "test")))
   }
