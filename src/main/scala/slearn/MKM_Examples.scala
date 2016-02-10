@@ -130,15 +130,12 @@ object MKM_Examples {
 
     // Determine if a number is prime
     def isPrime(n: Int): Boolean = {
-      var answer: Boolean = false
       val ns = 2 to n-1
-      if (n < 2) { // negative numbers and 1 are not primes
-        answer = false
-      } else { // using existis only go until find one divisor
-        val divisorFound: Boolean = ns.exists(x => n % x == 0)
-        if (divisorFound) answer = false else answer = true
+      n match {
+        case i if i < 2 => return false
+        case _ => { val divisorFound: Boolean = ns.exists(x => n % x == 0)
+                    if (divisorFound) return false else return true }
       }
-      answer
     }
 
     // Calculate the golden ratio.
