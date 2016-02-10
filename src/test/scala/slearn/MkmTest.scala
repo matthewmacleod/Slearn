@@ -129,4 +129,6 @@ class MkmSuite extends FunSuite {
 
   test("stream test 2"){ assert(List(2, 3, 5) == MKM_Examples.takeNPrimes((1 to 100).toStream,3)) }
 
+  test("test primes"){ assert(List(2, 3, 5) == MKM_Examples.primes(3)) }
+
 }
