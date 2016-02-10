@@ -120,8 +120,11 @@ class MkmSuite extends FunSuite {
   }
 
   test("test isp prime3"){ assert( true == MKM_Examples.isPrime(3)) }
+
   test("test isp prime4"){ assert( false == MKM_Examples.isPrime(4)) }
 
-  test("stream test 1"){ assert(7 == MKM_Examples.nthPrime((1 to 100).toStream,2)) }
+  test("stream test 1"){ assert(7 == MKM_Examples.nthPrime((1 to 100).toStream,3)) }
+
+  test("stream test 2"){ assert(List(2, 3, 5) == MKM_Examples.takeNPrimes((1 to 100).toStream,3)) }
 
 }

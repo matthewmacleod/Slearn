@@ -100,8 +100,12 @@ object MKM_Examples {
       for ((a,b) <- myListA zip myListB) yield a*b
     }
 
-    def nthPrime(s: => Stream[Int], n:Int): Int = {
+    def nthPrime(s: Stream[Int], n:Int): Int = {
       (s.filter(isPrime(_)))(n)
+    }
+
+    def takeNPrimes(s: Stream[Int], n:Int): List[Int] = {
+      (s.filter(isPrime(_))).take(n).toList
     }
 
     def fibonacci(n: Int): Int = {
@@ -115,11 +119,10 @@ object MKM_Examples {
     // Determine if a number is prime
     def isPrime(n:Integer) : Boolean = {
       var answer: Boolean = false
-      val ns = 2 to (n/2 + 1)
+      val ns = 2 to n-1
       if (n < 2) { // negative numbers and 1 are not primes
         answer = false
-      } else {
-        // using existis only go until find one divisor
+      } else { // using existis only go until find one divisor
         val divisorFound: Boolean = ns.exists(x => n % x == 0)
         if (divisorFound) answer = false else answer = true
       }
