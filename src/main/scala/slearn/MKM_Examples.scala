@@ -44,7 +44,65 @@ object MKM_Examples {
       (words.head /: words.tail) (_ + " " + _)
     }
 
+    def reverseLeft[T](xs: List[T]): List[T] = {
+      (List[T]() /: xs) {(ys,y) => y::ys}
+    }
+
     /////////////  simple maths algorithms  /////////////////
+
+    def sum(a: Int, b:Int): Int = {
+      a + b
+    }
+
+    def product(a: Int, b:Int): Int = {
+      a * b
+    }
+
+    def sum(ns:List[Int]): Int = (0 /: ns) (_+_)
+
+    def product(ns:List[Int]): Int = (1 /: ns) (_*_)
+
+    // return power do x^y
+    def power(x:Double, y:Int): Double = {
+      @annotation.tailrec def _pow(x:Double, n:Int, acc:Double=1): Double = n match {
+        case 0 => acc
+        case _ => _pow(x,n-1,acc*x)
+      }
+      _pow(x,y)
+    }
+
+    def quotient(numerator:Int, denominator:Int): Int =  {
+      numerator/denominator
+    }
+
+    def quotient(numerator:Double, denominator:Double): Int = {
+      (numerator/denominator).floor.toInt
+    }
+
+    def remainder(numerator:Int, denominator:Int): Int =  {
+      numerator % denominator
+    }
+
+    def remainder(numerator:Double, denominator:Double): Int =  {
+      (numerator % denominator).toInt
+    }
+
+    def square(n:Int): Int = n*n
+
+    // def squareAll(myList:List[Int]): List[Int] = myList.map((x:Int) => square(x))
+    def squareAll(myList:List[Int]): List[Int] = myList.map(square(_))
+
+    def sumSquareAll(myList:List[Int]): Int = squareAll(myList).reduce(_+_)
+
+    def productAll(myList:List[Int]): Int = myList.reduce(_*_)
+
+    def productAll2(myListA:List[Int], myListB:List[Int]): List[Int] = {
+      for ((a,b) <- myListA zip myListB) yield a*b
+    }
+
+    def nthPrime(s: => Stream[Int], n:Int): Int = {
+      (s.filter(isPrime(_)))(n)
+    }
 
     def fibonacci(n: Int): Int = {
       @annotation.tailrec def _fib(n: Int, value: Int, acc: Int = 0): Int = n match {
@@ -61,7 +119,9 @@ object MKM_Examples {
       if (n < 2) { // negative numbers and 1 are not primes
         answer = false
       } else {
-        answer = ns.forall(x => n % x != 0)
+        // using existis only go until find one divisor
+        val divisorFound: Boolean = ns.exists(x => n % x == 0)
+        if (divisorFound) answer = false else answer = true
       }
       answer
     }
