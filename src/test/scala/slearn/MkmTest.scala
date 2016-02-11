@@ -139,4 +139,17 @@ class MkmSuite extends FunSuite {
 
   test("test primes"){ assert(List(2, 3, 5) == MKM_Examples.primes(3)) }
 
+  test(" test median odd") {
+    val l = List(3,2,4,5,1)
+    assert(3.0 == MKM_Examples.median(l))
+  }
+
+  test(" test median even") {
+    val l = List(3,2,4,1)
+    assert(2.5 == MKM_Examples.median(l))
+  }
+
+
+
+
 }

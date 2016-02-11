@@ -35,6 +35,18 @@ class StatsSuite extends FunSuite {
     assert(6.0 == Stats.dot(List(0.0,2.0,4.0),List(0.0,1.0,1.0)))
   }
 
+  test(" test median odd") {
+    val l = List(3.0,2.0,4.0,5.0,1.0)
+    assert(3.0 == Stats.median(l))
+  }
+
+  test(" test median even") {
+    val l = List(3.0,2.0,4.0,1.0)
+    assert(2.5 == Stats.median(l))
+  }
+
+
+
 
 
 }

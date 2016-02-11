@@ -10,6 +10,18 @@ object Stats {
       case ys => ys.reduceLeft(_ + _) / ys.size.toDouble
     }
 
+    // return median
+    def median(xs: List[Double]): Double = {
+      val sList = xs.sortWith(_>_)
+      val n = sList.size
+      val half = n/2
+      n % 2 == 0 match {
+        case false => return { sList(half) }
+        case true => return { (sList(half)+sList(half-1))/2.0 }
+      }
+    }
+
+
     def std(xs: List[Double], avg: Double): Double = xs match {
       case Nil => 0.0
       case ys => math.sqrt((0.0 /: ys) {

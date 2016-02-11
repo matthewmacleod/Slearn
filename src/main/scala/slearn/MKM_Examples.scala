@@ -145,6 +145,17 @@ object MKM_Examples {
       _fib(n, 1)
     }
 
+    // return median
+    def median(xs: List[Int]): Double = {
+      val sList = xs.sortWith(_>_)
+      val n = sList.size
+      val half = n/2
+      n % 2 == 0 match {
+        case false => return { (sList(half)).toDouble }
+        case true => return { ((sList(half)+sList(half-1))/2.0) }
+      }
+    }
+
     // Calculate the golden ratio.
     def goldenRatio(a: Double, b: Double): Double = {
       def _ratio(x: Double, y: Double, n: Int): Double = n match {
