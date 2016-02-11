@@ -9,7 +9,7 @@ class MkmSuite extends FunSuite {
     assert("Hello World!" == MKM_Examples.helloWorld)
   }
 
-  test(" test caps") {
+  test("test caps") {
     val sentence: String = "Lorem ipsum dolor sit amet"
     assert("Lorem ipsum Dolor sit Amet" == MKM_Examples.capitalizeEveryNthWord(sentence, 0, 2))
   }
