@@ -11,12 +11,16 @@ class MkmSuite extends FunSuite {
 
   test("test caps") {
     val sentence: String = "Lorem ipsum dolor sit amet"
-    assert("Lorem ipsum Dolor sit Amet" == MKM_Examples.capitalizeEveryNthWord(sentence, 0, 2))
+    assert("Lorem ipsum Dolor sit Amet" == MKM_Examples.capEveryNthWord(sentence, 0, 2))
+  }
+
+  test("cap test"){
+    assert("Word" == MKM_Examples.cap("word"))
   }
 
   test("x test caps") {
     val sentence: String = "Lorem ipsum dolor sit amet"
-    assert("Lorem ipsum Dolor Sit Amet" == MKM_Examples.capitalizeEveryNthWord(sentence, 2, 1))
+    assert("Lorem ipsum Dolor Sit Amet" == MKM_Examples.capEveryNthWord(sentence, 2, 1))
   }
 
   test("fibonacci 0") {

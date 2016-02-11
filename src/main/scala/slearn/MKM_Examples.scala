@@ -1,7 +1,7 @@
 package slearn
 
-/* mkm scala practice
-*      and simple reference examples
+/**  MKM: some of my scala practice code
+*         and simple reference examples
 */
 
 object MKM_Examples {
@@ -9,42 +9,37 @@ object MKM_Examples {
 
     /////////////  simple text algorithms  /////////////////
 
-    // test
+    // Test
     def helloWorld(): String = {
       "Hello World!"
     }
 
-    // Take a single-spaced <sentence>, and capitalize every <n> word starting with <offset>.
-    def capitalizeEveryNthWord(sentence:String, offset:Integer, n:Integer): String = {
-      val words: Array[String] = sentence.split(" ")
-      val tail: Array[String] = words.drop(offset)
-      var keepers: Array[String] = words.take(offset)
-      var i = 0
-      for (w <- tail) {
-        if (i < n) {
-          if (n >= 2) {
-            keepers :+= w
-          } else {
-            keepers :+= w.capitalize
-          }
-        } else if (i % n == 0) {
-          keepers :+= w.capitalize
-        } else {
-          keepers :+= w
-        }
-        i += 1
-      }
-      val capped: String = keepers.mkString(" ")
-      capped
+    // my implementation of capitalize
+    def cap(word:String): String = {
+      var chars = word.split("").toList
+      var capped = chars.head.toUpperCase::chars.tail
+      capped.mkString("")
     }
 
-    // create a string from list of strings
+    // Take a single-spaced <sentence>, and capitalize every <n> word starting with <offset>.
+    def capEveryNthWord(sentence:String, offset:Integer, n:Integer): String = {
+      val (offsetWords, rest) = (sentence.split(" ")).toList.splitAt(offset)
+      val firstWord = List(rest.head.capitalize)
+      val wordSeq = rest.tail
+      val pairs = wordSeq zip wordSeq.indices
+      // increase index by one since capped first word, which was needed for mod here
+      val capped = pairs.map(x => if ((x._2 + 1) % n == 0) x._1.capitalize else x._1)
+      val finalWords = offsetWords ::: firstWord ::: capped
+      makeString(finalWords)
+    }
+
+    // Create a string from list of strings
     // use a foldleft /: which creates left-leaning operation tree
     def makeString(words: List[String]): String = {
       (words.head /: words.tail) (_ + " " + _)
     }
 
-    // xs is the accumulator, and since going L to R,
+    // Here xs is the accumulator, and since going L to R,
     // starting with empty list, the original list will be reversed
     def rev[T](list: List[T]): List[T] = {
       list.foldLeft(List[T]()) ((xs, x) => x::xs)
@@ -120,12 +115,15 @@ object MKM_Examples {
       (s.filter(isPrime(_))).take(n).toList
     }
 
-    def fibonacci(n: Int): Int = {
-      @annotation.tailrec def _fib(n: Int, value: Int, acc: Int = 0): Int = n match {
-        case 0 => acc
-        case _ => _fib(n - 1, acc, value + acc)
-      }
-      _fib(n, 1)
+    // create an infinite stream starting from n
+    def from(n: Int): Stream[Int] = n #:: from(n+1)
+
+    def sieve(s: Stream[Int]): Stream[Int] = {
+      s.head #:: sieve(s.tail.filter(_ % s.head != 0))
+    }
+
+    def primes(n: Int): List[Int] = {
+      sieve(from(2)).take(n).toList
     }
 
     // Determine if a number is prime
@@ -138,14 +136,22 @@ object MKM_Examples {
       }
     }
 
+    // return nth fibonnaci number
+    def fibonacci(n: Int): Int = {
+      @annotation.tailrec def _fib(n: Int, value: Int, acc: Int = 0): Int = n match {
+        case 0 => acc
+        case _ => _fib(n - 1, acc, value + acc)
+      }
+      _fib(n, 1)
+    }
+
     // Calculate the golden ratio.
     def goldenRatio(a: Double, b: Double): Double = {
-      var n:Int = 50
-      def _ratio(x:Double, y:Double, n:Int): Double = n match{
-        case 1 => (x max y)/(x min y)
+      def _ratio(x: Double, y: Double, n: Int): Double = n match {
+        case 1 => (x max y) / (x min y)
         case _ => _ratio((x max y), x+y, n-1)
       }
-      _ratio(a,b,n)
+      _ratio(a,b,50)
     }
 
     // Give the square root of a number, via Newton's method:
@@ -161,6 +167,14 @@ object MKM_Examples {
       _sqrtIter(1.0, n)
     }
 
+    // Stream version of newtons method
+    def sqrtStream(x: Double): Double = {
+      def square(x: Double) = x*x
+      def converged(guess: Double, x: Double) = math.abs(square(guess)-x) < 0.00001
+      def improve(guess: Double) = (guess + x / guess) / 2
+      lazy val guesses: Stream[Double] = 1 #:: (guesses map improve)
+      guesses.filter(converged(_, x)).head
+    }
 
     /////////////  sorting algorithms  /////////////////
 
