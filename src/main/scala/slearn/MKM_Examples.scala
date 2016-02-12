@@ -165,12 +165,13 @@ object MKM_Examples {
       _ratio(a,b,50)
     }
 
+    def abs(x: Double) = if (x < 0) -1.0 * x else x
+    def square(x: Double) = x * x
+
     // Give the square root of a number, via Newton's method:
     def squareRoot(n: Double): Double = {
-      def _abs(x: Double) = if (x < 0) -1.0 * x else x
-      def _square(x: Double) = x * x
       def _improve(guess: Double, x: Double) = (guess + x / guess) / 2.0
-      def _converged(guess: Double, x: Double) = _abs(_square(guess)-x) < 0.00001
+      def _converged(guess: Double, x: Double) = abs(square(guess)-x) < 0.00001
       def _sqrtIter(guess: Double, x: Double): Double = {
         if (_converged(guess, x)) guess
         else _sqrtIter(_improve(guess, x), x)
@@ -180,11 +181,28 @@ object MKM_Examples {
 
     // Stream version of newtons method
     def sqrtStream(x: Double): Double = {
-      def square(x: Double) = x*x
       def converged(guess: Double, x: Double) = math.abs(square(guess)-x) < 0.00001
       def improve(guess: Double) = (guess + x / guess) / 2
       lazy val guesses: Stream[Double] = 1 #:: (guesses map improve)
       guesses.filter(converged(_, x)).head
+    }
+
+
+    def sqrtBinarySearch(x: Double): Double = {
+      @annotation.tailrec
+      def _sqrt(x: Double, low: Double = 0.0, high: Double = x/2.0): Double = {
+        val mid = (high+low) / 2.0
+        val square = mid * mid
+        if (abs(square-x) < 0.00000000000001) {
+          return mid
+        } else
+          if (square < x) {
+            _sqrt(x, mid, high)
+          } else {
+            _sqrt(x, low, mid)
+         }
+      }
+      _sqrt(x)
     }
 
     /////////////  sorting algorithms  /////////////////

@@ -51,6 +51,10 @@ class MkmSuite extends FunSuite {
     assert(5.000000000053722 == MKM_Examples.squareRoot(25.0))
   }
 
+  test("sqrt bin 25"){
+    assert(5.0 == MKM_Examples.sqrtBinarySearch(25.0))
+  }
+
   test("sqrt 2"){
     assert(1.4142156862745097 == MKM_Examples.squareRoot(2.0))
   }
