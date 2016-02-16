@@ -18,7 +18,7 @@ object Stats {
       val half = n/2
       n % 2 == 0 match {
         case false => return { sList(half) }
-        case true => return { (sList(half)+sList(half-1))/2.0 }
+        case true => return { (sList(half)+sList(half-1)) / 2.0 }
       }
     }
 
