@@ -16,6 +16,38 @@ class StatsSuite extends FunSuite {
     assert(Stats.abs(-1) == 1)
   }
 
+  test("mean test"){
+    assert(Stats.mean(List(1.0,2.0,3.0,4.0,5.0,6.0)) == 3.5)
+  }
+
+  test("median test odd") {
+    assert(Stats.median(List(1.0,2.0,5.0,4.0,3.0)) == 3.0)
+  }
+
+  test("median test even") {
+    assert(Stats.median(List(1.0,2.0,6.0,5.0,4.0,3.0)) == 3.5)
+  }
+
+  test("variance test") {
+    assert(Stats.variance(List(1.0,2.0,6.0,5.0,4.0,3.0)) == 3.5)
+  }
+
+  test("standard deviation test") {
+    val list = List(1.0,2.0,6.0,5.0,4.0,3.0,2.0)
+    assert(math.sqrt(Stats.variance(list)) ==  Stats.std(list))
+  }
+
+  test("from mean map") {
+    val list = List(1.0,2.0,3.0,4.0,5.0,6.0)
+    assert(Stats.fromMean(list) == List(-2.5, -1.5, -0.5, 0.5, 1.5, 2.5))
+  }
+
+  test("covariance test") {
+    val listA = List(1.0,2.0,3.0,4.0,5.0,6.0)
+    val listB = List(1.0,2.0,3.0,4.0,5.0,7.0)
+    assert(Stats.covariance(listA,listB) == 4.0)
+  }
+
   test("test the factorial function") {
     val ans: BigInt = BigInt(120)
     assert(ans == Stats.factorial(BigInt(5)))
