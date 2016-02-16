@@ -1,6 +1,6 @@
 # slearn
 
-  Machine learning library in Scala Built from scratch.
+  Machine learning library in Scala -- Built from scratch.
 
 
 To compile and run:
@@ -13,6 +13,10 @@ To test:
 --------------
 
   sbt test
+
+To run tests in background:
+
+  sbt ~test
 
 
 Interactive environment:
