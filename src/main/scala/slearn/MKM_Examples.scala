@@ -187,7 +187,6 @@ object MKM_Examples {
       guesses.filter(converged(_, x)).head
     }
 
-
     def sqrtBinarySearch(x: Double): Double = {
       @annotation.tailrec
       def _sqrt(x: Double, low: Double = 0.0, high: Double = x/2.0): Double = {
@@ -204,6 +203,22 @@ object MKM_Examples {
       }
       _sqrt(x)
     }
+
+    def squareRootOfPerfectSquare(a:Int):Option[Int] = {
+      val sqrtTry = sqrtBinarySearch(a.toDouble)
+      if (abs(sqrtTry.round - sqrtTry) < 0.00000000000001)
+        return Some(sqrtTry.toInt)
+      else
+        return None
+    }
+
+    def afterFilter(list: List[Int]): List[Int] = {
+      val start = list.takeWhile(_ > 0)
+      val (beg, end) = list.splitAt(start.size + 1)
+      val endPositive = end.filter(_ > 0)
+      beg ::: endPositive
+    }
+
 
     /////////////  sorting algorithms  /////////////////
 

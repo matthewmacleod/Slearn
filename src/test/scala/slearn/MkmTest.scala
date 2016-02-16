@@ -9,6 +9,11 @@ class MkmSuite extends FunSuite {
     assert("Hello World!" == MKM_Examples.helloWorld)
   }
 
+  test("test after filter") {
+    val list = List(1,20,4,-3,-4,-5,7,8,9)
+    assert(List(1,20,4,-3,7,8,9) == MKM_Examples.afterFilter(list))
+  }
+
   test("test caps") {
     val sentence: String = "Lorem ipsum dolor sit amet"
     assert("Lorem ipsum Dolor sit Amet" == MKM_Examples.capEveryNthWord(sentence, 0, 2))
@@ -152,6 +157,7 @@ class MkmSuite extends FunSuite {
     val l = List(3,2,4,1)
     assert(2.5 == MKM_Examples.median(l))
   }
+
 
 
 
